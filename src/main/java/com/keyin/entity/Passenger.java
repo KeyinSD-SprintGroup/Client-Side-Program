@@ -1,10 +1,21 @@
 package com.keyin.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Passenger {
     private long id;
     private String firstName;
     private String lastName;
     private String phoneNumber;
+    private List<Long> airportIdList;
+
+    public List<Long> getAirportIdList() {
+        if (airportIdList == null) {
+            airportIdList = new ArrayList<>();
+        }
+        return airportIdList;
+    }
 
     public long getId() {
         return id;
@@ -32,5 +43,12 @@ public class Passenger {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String passengerToString() {
+        return
+                "ID:" + " " + id + "\n" +
+                "Name:" + " " + firstName + "  " + lastName + '\n' +
+                "Phone Number:" + " " + phoneNumber;
     }
 }

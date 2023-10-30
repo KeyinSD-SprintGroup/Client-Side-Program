@@ -3,6 +3,7 @@ package com.keyin;
 import com.keyin.entity.Aircraft;
 import com.keyin.entity.Airport;
 import com.keyin.entity.City;
+import com.keyin.entity.Passenger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +58,7 @@ public class ClientApplication {
                     getAllCity();
                     break;
                 case 8:
-//                    getAllPassenger();
+                    getAllPassenger();
                     break;
                 case 9:
                     System.out.println("Exiting...");
@@ -108,6 +109,23 @@ public class ClientApplication {
 //        List airportsJson = restClient.getAllAirportsAsJson();
 //        System.out.println("Airports used by passenger " + passenger + ": " + airportsJson);
 //    }
+
+
+    public static void getAllPassenger() {
+        List<Passenger> passengerList;
+        try {
+            passengerList = restClient.getAllPassenger();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+        int passengerCount = 0;
+        for (Passenger passenger : passengerList) {
+            System.out.printf("\nPassenger(%s):\n********\n", passengerCount);
+            System.out.println(passenger.passengerToString());
+            passengerCount++;
+        }
+    }
 
     public static void getAllAircraft() {
         List<Aircraft> airCraftList;
@@ -160,6 +178,20 @@ public class ClientApplication {
             }
             cityCount ++;
         }
+    }
+
+
+
+
+    public static void getPassengerById(long id) {
+        Passenger passenger;
+        try {
+            passenger = restClient.getPassengerById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+        System.out.println("\t\t\t" + passenger);
     }
 
     public static void getAirportById(long id) {
