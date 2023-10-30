@@ -2,6 +2,7 @@ package com.keyin;
 
 import com.keyin.entity.Aircraft;
 import com.keyin.entity.Airport;
+import com.keyin.entity.City;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,8 @@ public class ClientApplication {
             System.out.println("3. List take-off and landing airports for aircraft");
             System.out.println("4. List airports used by passenger");
             System.out.println("5. List all aircraft");
-            System.out.println("6. Exit");
+            System.out.println("6. List all airport");
+            System.out.println("7. Exit");
             System.out.println("---------------------------------------------------------");
 
             Scanner scanner = new Scanner(System.in);
@@ -47,6 +49,9 @@ public class ClientApplication {
                     getAllAircraft();
                     break;
                 case 6:
+                    getAllAirport();
+                    break;
+                case 7:
                     System.out.println("Exiting...");
                     running = false;
                     break;
@@ -132,5 +137,36 @@ public class ClientApplication {
             return;
         }
         System.out.println("\t\t\t" + airport);
+    }
+
+    public static void getAllAirport() {
+        List<Airport> airportList;
+        try {
+            airportList = restClient.getAllAirport();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+        int airportCount = 0;
+        for (Airport airport : airportList) {
+            System.out.printf("\nAirport(%s):\n********\n", airportCount);
+            System.out.println("\tID:                 " + airport.getId());
+            System.out.println("\tName:               " + airport.getName());
+            System.out.println("\tCode:       " + airport.getCode());
+            System.out.println("\tAirport ID List:    ");
+            getCityById(airport.getCityId());
+            airportCount++;
+        }
+    }
+
+    public static void getCityById(long id) {
+        City city;
+        try {
+            city = restClient.getCityById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+        System.out.println("\t\t\t" + city);
     }
 }

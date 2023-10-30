@@ -6,6 +6,7 @@ public class City {
     private String state;
     private int population;
 
+
     public long getId() {
         return id;
     }
