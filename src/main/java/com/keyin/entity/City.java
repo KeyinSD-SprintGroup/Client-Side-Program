@@ -1,10 +1,28 @@
 package com.keyin.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class City {
     private long id;
     private String name;
     private String state;
     private int population;
+    private List<Long> airportIdList;
+
+    public void appendAirport(long id) {
+        if (airportIdList == null) {
+            airportIdList = new ArrayList<>();
+        }
+        airportIdList.add(id);
+    }
+
+    public List<Long> getAirportIdList() {
+        if (airportIdList == null) {
+            airportIdList = new ArrayList<>();
+        }
+        return airportIdList;
+    }
 
     public long getId() {
         return id;

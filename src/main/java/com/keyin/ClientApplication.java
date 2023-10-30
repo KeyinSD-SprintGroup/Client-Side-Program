@@ -2,6 +2,7 @@ package com.keyin;
 
 import com.keyin.entity.Aircraft;
 import com.keyin.entity.Airport;
+import com.keyin.entity.City;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,10 @@ public class ClientApplication {
             System.out.println("3. List take-off and landing airports for aircraft");
             System.out.println("4. List airports used by passenger");
             System.out.println("5. List all aircraft");
-            System.out.println("6. Exit");
+            System.out.println("6. List all airports");
+            System.out.println("7. List all cities");
+            System.out.println("8. List all passengers");
+            System.out.println("9. Exit");
             System.out.println("---------------------------------------------------------");
 
             Scanner scanner = new Scanner(System.in);
@@ -47,6 +51,15 @@ public class ClientApplication {
                     getAllAircraft();
                     break;
                 case 6:
+//                    getAllAirport();
+                    break;
+                case 7:
+                    getAllCity();
+                    break;
+                case 8:
+//                    getAllPassenger();
+                    break;
+                case 9:
                     System.out.println("Exiting...");
                     running = false;
                     break;
@@ -120,6 +133,32 @@ public class ClientApplication {
             }
             System.out.println("\tPassenger ID List:  " + aircraft.getPassengerIdList());
             aircraftCount++;
+        }
+    }
+
+    public static void getAllCity() {
+        List<City> cityList;
+        try {
+            cityList = restClient.getAllCity();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+        int cityCount = 0;
+        for (City city : cityList) {
+            System.out.printf("\nCity(%s):\n********\n", cityCount);
+            System.out.println("\tID:                 " + city.getId());
+            System.out.println("\tCity Name:          " + city.getName());
+            System.out.println("\tState:              " + city.getState());
+            System.out.println("\tPopulation:         " + city.getPopulation());
+            System.out.println("\tAirport ID List:       ");
+            int airportCount = 0;
+            for (long id : city.getAirportIdList()) {
+                System.out.printf("\t\tAirport (%s)\n", airportCount);
+                getAirportById(id);
+                airportCount++;
+            }
+            cityCount ++;
         }
     }
 
