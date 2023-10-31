@@ -126,4 +126,44 @@ public class RESTClient {
 
         return passengerList.get(0);
     }
+
+    public List<Airport> getAllAirport() throws IOException {
+        HttpGet request = new HttpGet("http://localhost:8080/airport");
+
+        CloseableHttpResponse response = httpClient.execute(request);
+        HttpEntity entity = response.getEntity();
+
+        if (response.getStatusLine().getStatusCode() != 200) {
+            System.out.println(response.getStatusLine().getStatusCode() + ": Connection is bad.");
+            return new ArrayList<>();
+        }
+
+        ObjectMapper mapper = new ObjectMapper();
+        List<Airport> airportList;
+
+        airportList = mapper.readValue(EntityUtils.toString(entity), new TypeReference<List<Airport>>() {});
+        System.out.println(airportList.size() + " found");
+
+        return airportList;
+    }
+
+    public City getCityById(long id) throws IOException {
+        String URL = String.format("http://localhost:8080/city_by_id?id=%s", id);
+        HttpGet request = new HttpGet(URL);
+
+        CloseableHttpResponse response = httpClient.execute(request);
+        HttpEntity entity = response.getEntity();
+
+        if (response.getStatusLine().getStatusCode() != 200) {
+            System.out.println(response.getStatusLine().getStatusCode() + ": Connection is bad.");
+            return null;
+        }
+
+        ObjectMapper mapper = new ObjectMapper();
+        City city;
+
+        city = mapper.readValue(EntityUtils.toString(entity), new TypeReference<City>() {});
+
+        return city;
+    }
 }

@@ -180,8 +180,36 @@ public class ClientApplication {
         }
     }
 
+    public static void getCityById(long id) {
+        City city;
+        try {
+            city = restClient.getCityById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+        System.out.println("\t\t\t" + city);
+    }
 
-
+    public static void getAllAirport() {
+        List<Airport> airportList;
+        try {
+            airportList = restClient.getAllAirport();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+        int airportCount = 0;
+        for (Airport airport : airportList) {
+            System.out.printf("\nAirport(%s):\n********\n", airportCount);
+            System.out.println("\tID:                 " + airport.getId());
+            System.out.println("\tName:               " + airport.getName());
+            System.out.println("\tCode:       " + airport.getCode());
+            System.out.println("\tAirport ID List:    ");
+            getCityById(airport.getCityId());
+            airportCount++;
+        }
+    }
 
     public static void getPassengerById(long id) {
         Passenger passenger;

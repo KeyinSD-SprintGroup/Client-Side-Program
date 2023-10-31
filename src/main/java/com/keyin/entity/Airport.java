@@ -4,15 +4,14 @@ public class Airport {
     private long id;
     private String name;
     private String code;
-    private City city;
+    private Long cityId;
 
-
-    public City getCity() {
-        return city;
+    public long getCityId() {
+        return cityId;
     }
 
-    public void setCity(City city) {
-        this.city = city;
+    public void setCityId(long id) {
+        this.cityId = id;
     }
 
     public long getId() {
