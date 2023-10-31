@@ -6,70 +6,95 @@ import com.keyin.entity.City;
 import com.keyin.entity.Passenger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class ClientApplication {
     private static final RESTClient restClient = new RESTClient();
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        printMenuAndUsage();
 
-        boolean running = true;
-        while (running){
-            System.out.println("---------------------------------------------------------");
-            System.out.println("Welcome to the Cities and Airports Information System!");
-            System.out.println("---------------------------------------------------------");
-            System.out.println();
-            System.out.println("---------------------------------------------------------");
-            System.out.println("Choose an option:");
-            System.out.println("1. List airports by city");
-            System.out.println("2. List aircraft by passenger");
-            System.out.println("3. List take-off and landing airports for aircraft");
-            System.out.println("4. List airports used by passenger");
-            System.out.println("5. List all aircraft");
-            System.out.println("6. List all airports");
-            System.out.println("7. List all cities");
-            System.out.println("8. List all passengers");
-            System.out.println("9. Exit");
-            System.out.println("---------------------------------------------------------");
+        String input = scanner.nextLine();
+        String[] inputParts = input.split(" ");
 
-            Scanner scanner = new Scanner(System.in);
-            int choice = scanner.nextInt();
+        if (inputParts.length < 2 || !"ClientApplication".equals(inputParts[0])) {
+            System.out.println("Invalid input format. The input must start with 'ClientApplication'.");
+            return;
+        }
 
-            switch (choice) {
-                case 1:
-//                    getAirportsByCity();
-                    break;
-                case 2:
-//                    getAircraftByPassenger();
-                    break;
-                case 3:
-//                    getTakeOffAndLandingAirports();
-                    break;
-                case 4:
-//                    getAirportsUsedByPassenger();
-                    break;
-                case 5:
-                    getAllAircraft();
-                    break;
-                case 6:
-//                    getAllAirport();
-                    break;
-                case 7:
-                    getAllCity();
-                    break;
-                case 8:
-                    getAllPassenger();
-                    break;
-                case 9:
-                    System.out.println("Exiting...");
-                    running = false;
-                    break;
-                default:
-                    System.out.println("Invalid choice");
-                    break;
+        String option = inputParts[1];
+
+        if ("--showall".equals(option)) {
+            if (inputParts.length < 3) {
+                System.out.println("Missing sub-option. Please provide a sub-option.");
+            } else {
+                String subOption = inputParts[2];
+                switch (subOption) {
+                    case "aircraft":
+                        getAllAircraft();
+                        break;
+                    case "airports":
+                        // getAllAirports();
+                        break;
+                    case "passengers":
+                        getAllPassenger();
+                        break;
+                    case "cities":
+                        // getAllCities();
+                        break;
+                    default:
+                        System.out.println("Invalid sub-option. Please choose a valid sub-option.");
+                }
             }
+        } else if ("--show".equals(option)) {
+            if (inputParts.length < 4) {
+                System.out.println("Missing sub-option or ID. Please provide a sub-option and ID.");
+            } else {
+                String subCommand = inputParts[2];
+                try {
+                    long id = Long.parseLong(inputParts[3]);
+                    switch (subCommand) {
+                        case "airport":
+                            // showAirportsById(id);
+                            break;
+                        case "passenger":
+                            // showAircraftByPassenger(id);
+                            break;
+                        case "flightplan":
+                            // showTakeOffAndLandingAirports(id);
+                            break;
+                        case "airportpassenger":
+                            // showAirportsUsedByPassenger(id);
+                            break;
+                        default:
+                            System.out.println("Invalid sub-option. Please choose a valid sub-option.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid ID. ID must be an integer.");
+                }
+            }
+        } else {
+            System.out.println("Invalid option. Please choose a valid option.");
         }
-        }
+    }
+
+
+    public static void printMenuAndUsage() {
+        System.out.println("Cities and Airports Information System - CLI");
+        System.out.println("Usage: ClientApplication <option> [additional arguments]");
+        System.out.println("Options:");
+        System.out.println(" --showall airports                   shows list of all airports");
+        System.out.println(" --showall aircraft                   shows list of all aircraft");
+        System.out.println(" --showall passengers                 shows list of all passengers");
+        System.out.println(" --showall cities                     shows list of all cities");
+        System.out.println(" --show airport <id>                  shows the airports in a specific city");
+        System.out.println(" --show passenger <id>                shows which aircraft a specific passenger used");
+        System.out.println(" --show flightplan <id>               shows the take-off and landing cities of an aircraft");
+        System.out.println(" --show airportpassenger <id>         shows which airports are used by a specific passenger");
+    }
+
 
 
 
