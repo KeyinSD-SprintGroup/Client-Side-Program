@@ -13,73 +13,70 @@ import java.util.Scanner;
 public class ClientApplication {
     private static final RESTClient restClient = new RESTClient();
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        printMenuAndUsage();
-
-        String input = scanner.nextLine();
-        String[] inputParts = input.split(" ");
-
-        if (inputParts.length < 2 || !"ClientApplication".equals(inputParts[0])) {
-            System.out.println("Invalid input format. The input must start with 'ClientApplication'.");
+        if (args.length < 1) {
+            System.out.println("Usage: java ClientApplication <option> [additional arguments]");
+            printMenuAndUsage();
             return;
         }
 
-        String option = inputParts[1];
+        String option = args[0];
 
-        if ("--showall".equals(option)) {
-            if (inputParts.length < 3) {
-                System.out.println("Missing sub-option. Please provide a sub-option.");
-            } else {
-                String subOption = inputParts[2];
-                switch (subOption) {
-                    case "aircraft":
-                        getAllAircraft();
-                        break;
-                    case "airports":
-                        // getAllAirports();
-                        break;
-                    case "passengers":
-                        getAllPassenger();
-                        break;
-                    case "cities":
-                        // getAllCities();
-                        break;
-                    default:
-                        System.out.println("Invalid sub-option. Please choose a valid sub-option.");
-                }
-            }
-        } else if ("--show".equals(option)) {
-            if (inputParts.length < 4) {
-                System.out.println("Missing sub-option or ID. Please provide a sub-option and ID.");
-            } else {
-                String subCommand = inputParts[2];
-                try {
-                    long id = Long.parseLong(inputParts[3]);
-                    switch (subCommand) {
-                        case "airport":
-                            // showAirportsById(id);
+        switch (option) {
+            case "--showall":
+                if (args.length < 2) {
+                    System.out.println("Missing sub-option. Please provide a sub-option.");
+                } else {
+                    String subOption = args[1];
+                    switch (subOption) {
+                        case "aircraft":
+                            getAllAircraft();
                             break;
-                        case "passenger":
-                            // showAircraftByPassenger(id);
+                        case "airports":
+                            // getAllAirports();
                             break;
-                        case "flightplan":
-                            // showTakeOffAndLandingAirports(id);
+                        case "passengers":
+                            getAllPassenger();
                             break;
-                        case "airportpassenger":
-                            // showAirportsUsedByPassenger(id);
+                        case "cities":
+                            // getAllCities();
                             break;
                         default:
                             System.out.println("Invalid sub-option. Please choose a valid sub-option.");
                     }
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid ID. ID must be an integer.");
                 }
-            }
-        } else {
-            System.out.println("Invalid option. Please choose a valid option.");
+                break;
+            case "--show":
+                if (args.length < 4) {
+                    System.out.println("Missing sub-option or ID. Please provide a sub-option and ID.");
+                } else {
+                    String subCommand = args[2];
+                    try {
+                        long id = Long.parseLong(args[3]);
+                        switch (subCommand) {
+                            case "airport":
+                                // showAirportsById(id);
+                                break;
+                            case "passenger":
+                                // showAircraftByPassenger(id);
+                                break;
+                            case "flightplan":
+                                // showTakeOffAndLandingAirports(id);
+                                break;
+                            case "airportpassenger":
+                                // showAirportsUsedByPassenger(id);
+                                break;
+                            default:
+                                System.out.println("Invalid sub-option. Please choose a valid sub-option.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid ID. ID must be an integer.");
+                    }
+                }
+                break;
+            default:
+                System.out.println("Invalid option. Please choose a valid option.");
         }
     }
-
 
     public static void printMenuAndUsage() {
         System.out.println("Cities and Airports Information System - CLI");
