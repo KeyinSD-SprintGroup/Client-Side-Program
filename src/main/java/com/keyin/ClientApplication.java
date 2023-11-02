@@ -10,7 +10,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ClientApplication {
-    private static final RESTClient restClient = new RESTClient();
+    private static RESTClient restClient = null;
+
+    public static void setRestClient(RESTClient x) {
+        restClient = x;
+    }
     public static void main(String[] args) {
 
         boolean running = true;
@@ -69,7 +73,8 @@ public class ClientApplication {
                     break;
             }
         }
-        }
+    }
+
 
 
 
