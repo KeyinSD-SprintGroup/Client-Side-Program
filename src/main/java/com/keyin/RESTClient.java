@@ -10,16 +10,9 @@ import com.keyin.entity.Aircraft;
 import com.keyin.entity.Airport;
 import com.keyin.entity.City;
 import com.keyin.entity.Passenger;
-import org.apache.http.HttpEntity;
-//import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
+
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
@@ -34,9 +27,7 @@ public class RESTClient {
 
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            if (response.statusCode()==200) {
-                System.out.println("***** " + response.body());
-            } else {
+            if (response.statusCode() != 200) {
                 System.out.println("Error Status Code: " + response.statusCode());
             }
 
@@ -61,9 +52,7 @@ public class RESTClient {
 
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            if (response.statusCode()==200) {
-                System.out.println("***** " + response.body());
-            } else {
+            if (response.statusCode() != 200) {
                 System.out.println("Error Status Code: " + response.statusCode());
             }
 
@@ -88,9 +77,7 @@ public class RESTClient {
 
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            if (response.statusCode()==200) {
-                System.out.println("***** " + response.body());
-            } else {
+            if (response.statusCode() != 200) {
                 System.out.println("Error Status Code: " + response.statusCode());
             }
 
@@ -115,9 +102,7 @@ public class RESTClient {
 
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            if (response.statusCode()==200) {
-                System.out.println("***** " + response.body());
-            } else {
+            if (response.statusCode() != 200) {
                 System.out.println("Error Status Code: " + response.statusCode());
             }
 
@@ -141,9 +126,7 @@ public class RESTClient {
 
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            if (response.statusCode()==200) {
-                System.out.println("***** " + response.body());
-            } else {
+            if (response.statusCode() != 200) {
                 System.out.println("Error Status Code: " + response.statusCode());
             }
 
@@ -195,9 +178,7 @@ public class RESTClient {
 
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            if (response.statusCode()==200) {
-                System.out.println("***** " + response.body());
-            } else {
+            if (response.statusCode() != 200) {
                 System.out.println("Error Status Code: " + response.statusCode());
             }
 
@@ -223,9 +204,7 @@ public class RESTClient {
 
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            if (response.statusCode()==200) {
-                System.out.println("***** " + response.body());
-            } else {
+            if (response.statusCode() != 200) {
                 System.out.println("Error Status Code: " + response.statusCode());
             }
 

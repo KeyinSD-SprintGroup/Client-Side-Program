@@ -45,10 +45,14 @@ public class Passenger {
         this.phoneNumber = phoneNumber;
     }
 
-    public String passengerToString() {
-        return
-                "ID:" + " " + id + "\n" +
-                "Name:" + " " + firstName + "  " + lastName + '\n' +
-                "Phone Number:" + " " + phoneNumber;
+    @Override
+    public String toString() {
+        return "Passenger{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", aircraftIdList=" + aircraftIdList +
+                '}';
     }
 }
