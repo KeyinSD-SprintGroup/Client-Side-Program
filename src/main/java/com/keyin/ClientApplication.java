@@ -5,236 +5,245 @@ import com.keyin.entity.Airport;
 import com.keyin.entity.City;
 import com.keyin.entity.Passenger;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class ClientApplication {
-    private static RESTClient restClient = null;
-
-    public static void setRestClient(RESTClient x) {
-        restClient = x;
+    private RESTClient restClient;
+    public RESTClient getRestClient() {
+        if (restClient == null) {
+            restClient = new RESTClient();
+        }
+        return restClient;
     }
+    public void setRestClient(RESTClient restClient) {
+        this.restClient = restClient;
+    }
+
     public static void main(String[] args) {
+        ClientApplication cliApp = new ClientApplication();
 
-        boolean running = true;
-        while (running){
-            System.out.println("---------------------------------------------------------");
-            System.out.println("Welcome to the Cities and Airports Information System!");
-            System.out.println("---------------------------------------------------------");
-            System.out.println();
-            System.out.println("---------------------------------------------------------");
-            System.out.println("Choose an option:");
-            System.out.println("1. List airports by city");
-            System.out.println("2. List aircraft by passenger");
-            System.out.println("3. List take-off and landing airports for aircraft");
-            System.out.println("4. List airports used by passenger");
-            System.out.println("5. List all aircraft");
-            System.out.println("6. List all airports");
-            System.out.println("7. List all cities");
-            System.out.println("8. List all passengers");
-            System.out.println("9. Exit");
-            System.out.println("---------------------------------------------------------");
+        cliApp.setRestClient(new RESTClient());
 
-            Scanner scanner = new Scanner(System.in);
-            int choice = scanner.nextInt();
+        System.out.println("\ngetFlightPlan()*****\n");
+        cliApp.getFlightPlan(0);
 
-            switch (choice) {
-                case 1:
-//                    getAirportsByCity();
-                    break;
-                case 2:
-//                    getAircraftByPassenger();
-                    break;
-                case 3:
-//                    getTakeOffAndLandingAirports();
-                    break;
-                case 4:
-//                    getAirportsUsedByPassenger();
-                    break;
-                case 5:
-                    getAllAircraft();
-                    break;
-                case 6:
-//                    getAllAirport();
-                    break;
-                case 7:
-                    getAllCity();
-                    break;
-                case 8:
-                    getAllPassenger();
-                    break;
-                case 9:
-                    System.out.println("Exiting...");
-                    running = false;
-                    break;
-                default:
-                    System.out.println("Invalid choice");
-                    break;
+    }
+
+//    public static void main(String[] args) {
+//        ClientApplication cliApp = new ClientApplication();
+//
+//        cliApp.setRestClient(new RESTClient());
+//
+//        Scanner scanner = new Scanner(System.in);
+//        printMenuAndUsage();
+//
+//        String input = scanner.nextLine();
+//        String[] inputParts = input.split(" ");
+//
+//        if (inputParts.length < 2 || !"ClientApplication".equals(inputParts[0])) {
+//            System.out.println("Invalid input format. The input must start with 'ClientApplication'.");
+//            return;
+//        }
+//
+//        String option = inputParts[1];
+//
+//        if ("--showall".equals(option)) {
+//            if (inputParts.length < 3) {
+//                System.out.println("Missing sub-option. Please provide a sub-option.");
+//            } else {
+//                String subOption = inputParts[2];
+//                switch (subOption) {
+//                    case "aircraft":
+//                        cliApp.generateAircraftReport();
+//                        break;
+//                    case "airports":
+//                        cliApp.generateAirportReport();
+//                        break;
+//                    case "passengers":
+//                        cliApp.generatePassengerReport();
+//                        break;
+//                    case "cities":
+//                        cliApp.generateCityReport();
+//                        break;
+//                    default:
+//                        System.out.println("Invalid sub-option. Please choose a valid sub-option.");
+//                }
+//            }
+//        } else if ("--show".equals(option)) {
+//            if (inputParts.length < 4) {
+//                System.out.println("Missing sub-option or ID. Please provide a sub-option and ID.");
+//            } else {
+//                String subCommand = inputParts[2];
+//                try {
+//                    long id = Long.parseLong(inputParts[3]);
+//                    switch (subCommand) {
+//                        case "airport":
+////                             cliApp.getAirportsByCity();
+//                            break;
+//                        case "passenger":
+////                            showAircraftByPassenger(id);
+//                            break;
+//                        case "flightplan":
+//                             cliApp.getFlightPlan(id);
+//                            break;
+//                        case "airportpassenger":
+////                             showAirportsUsedByPassenger(id);
+//                            break;
+//                        default:
+//                            System.out.println("Invalid sub-option. Please choose a valid sub-option.");
+//                    }
+//                } catch (NumberFormatException e) {
+//                    System.out.println("Invalid ID. ID must be an integer.");
+//                }
+//            }
+//        } else {
+//            System.out.println("Invalid option. Please choose a valid option.");
+//        }
+//    }
+//
+//
+//    public static void printMenuAndUsage() {
+//        System.out.println("Cities and Airports Information System - CLI");
+//        System.out.println("Usage: ClientApplication <option> [additional arguments]");
+//        System.out.println("Options:");
+//        System.out.println(" --showall airports                   shows list of all airports");
+//        System.out.println(" --showall aircraft                   shows list of all aircraft");
+//        System.out.println(" --showall passengers                 shows list of all passengers");
+//        System.out.println(" --showall cities                     shows list of all cities");
+//        System.out.println(" --show airport <id>                  shows the airports in a specific city");
+//        System.out.println(" --show flightplan <id>               shows the take-off and landing cities of an aircraft");
+//         System.out.println(" --show passenger <id>                shows which aircraft a specific passenger used");
+//        System.out.println(" --show airportpassenger <id>         shows which airports are used by a specific passenger");
+//    }
+
+    public String generateAircraftReport() {
+        List<Aircraft> aircrafts = getRestClient().getAllAircraft();
+
+        StringBuffer report = new StringBuffer();
+
+        for (Aircraft  aircraft : aircrafts) {
+            report.append(aircraft.getType());
+            report.append(" - ");
+            report.append(aircraft.getAirlineName());
+
+            if (aircrafts.indexOf(aircraft) != (aircrafts.size() - 1)) {
+                report.append(",");
             }
         }
+
+        System.out.println(report.toString());
+
+        return report.toString();
     }
 
+    public String generateAirportReport() {
+        List<Airport> airports = getRestClient().getAllAirports();
 
+        StringBuffer report = new StringBuffer();
 
+        for (Airport airport : airports) {
+            report.append(airport.getName());
+            report.append(" - ");
+            report.append(airport.getCode());
 
-
-//    public static void getAirportsByCity() {
-//        System.out.println("Enter the desired city:");
-//        Scanner scanner = new Scanner(System.in);
-//        String city = scanner.nextLine();
-//
-//        String airportsJson = restClient.getAllAirportsAsJson();
-//        System.out.println("Airports in " + city + ": " + airportsJson);
-//    }
-//
-//    public static void getAircraftByPassenger() {
-//        System.out.println("Enter the desired passenger:");
-//        Scanner scanner = new Scanner(System.in);
-//        String passenger = scanner.nextLine();
-//
-//        String aircraftJson = restClient.getAllAircraftAsJson();
-//        System.out.println("Aircraft for passenger " + passenger + ": " + aircraftJson);
-//    }
-//
-//    public static void getTakeOffAndLandingAirports() {
-//        System.out.println("Enter the desired aircraft:");
-//        Scanner scanner = new Scanner(System.in);
-//        String aircraft = scanner.nextLine();
-//
-//        List airportsJson = restClient.getAllAirportsAsJson();
-//        System.out.println("Airports for aircraft " + aircraft + ": " + airportsJson);
-//    }
-//
-//    public static void getAirportsUsedByPassenger() {
-//        System.out.println("Enter the desired passenger:");
-//        Scanner scanner = new Scanner(System.in);
-//        String passenger = scanner.nextLine();
-//
-//        List airportsJson = restClient.getAllAirportsAsJson();
-//        System.out.println("Airports used by passenger " + passenger + ": " + airportsJson);
-//    }
-
-
-    public static void getAllPassenger() {
-        List<Passenger> passengerList;
-        try {
-            passengerList = restClient.getAllPassenger();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
-        int passengerCount = 0;
-        for (Passenger passenger : passengerList) {
-            System.out.printf("\nPassenger(%s):\n********\n", passengerCount);
-            System.out.println(passenger.passengerToString());
-            passengerCount++;
-        }
-    }
-
-    public static void getAllAircraft() {
-        List<Aircraft> airCraftList;
-        try {
-            airCraftList = restClient.getAllAircraft();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
-        int aircraftCount = 0;
-        for (Aircraft aircraft : airCraftList) {
-            System.out.printf("\nAircraft(%s):\n********\n", aircraftCount);
-            System.out.println("\tID:                 " + aircraft.getId());
-            System.out.println("\tType:               " + aircraft.getType());
-            System.out.println("\tAirline Name:       " + aircraft.getAirlineName());
-            System.out.println("\tPassenger Capacity: " + aircraft.getNumberOfPassengers());
-            System.out.println("\tAirport ID List:    ");
-            int airportCount = 0;
-            for (long id : aircraft.getAirportIdList()) {
-                System.out.printf("\t\tAirport (%s)\n", airportCount);
-                getAirportById(id);
-                airportCount++;
+            if (airports.indexOf(airport) != (airports.size() - 1)) {
+                report.append(",");
             }
-            System.out.println("\tPassenger ID List:  " + aircraft.getPassengerIdList());
-            aircraftCount++;
         }
+
+        System.out.println(report.toString());
+
+        return report.toString();
     }
 
-    public static void getAllCity() {
-        List<City> cityList;
-        try {
-            cityList = restClient.getAllCity();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
-        int cityCount = 0;
-        for (City city : cityList) {
-            System.out.printf("\nCity(%s):\n********\n", cityCount);
-            System.out.println("\tID:                 " + city.getId());
-            System.out.println("\tCity Name:          " + city.getName());
-            System.out.println("\tState:              " + city.getState());
-            System.out.println("\tPopulation:         " + city.getPopulation());
-            System.out.println("\tAirport ID List:       ");
-            int airportCount = 0;
-            for (long id : city.getAirportIdList()) {
-                System.out.printf("\t\tAirport (%s)\n", airportCount);
-                getAirportById(id);
-                airportCount++;
+    public String generateCityReport() {
+        List<City> cities = getRestClient().getAllCity();
+
+        StringBuffer report = new StringBuffer();
+
+        for (City city : cities) {
+            report.append(city.getName());
+            report.append(" - ");
+            report.append(city.getState());
+
+            if (cities.indexOf(city) != (cities.size() - 1)) {
+                report.append(",");
             }
-            cityCount ++;
+        }
+
+        System.out.println(report.toString());
+
+        return report.toString();
+    }
+
+    public String generatePassengerReport() {
+        List<Passenger> passengers = getRestClient().getAllPassengers();
+
+        StringBuffer report = new StringBuffer();
+
+        for (Passenger passenger : passengers) {
+            report.append(passenger.getFirstName() + " " + passenger.getLastName());
+            report.append(" - ");
+            report.append(passenger.getPhoneNumber());
+
+            if (passengers.indexOf(passenger) != (passengers.size() - 1)) {
+                report.append(",");
+            }
+        }
+
+        System.out.println(report.toString());
+
+        return report.toString();
+    }
+
+    public String getCityById(long id) {
+        City city = getRestClient().getCityById(id);
+        System.out.println(city);
+        return city.toString();
+    }
+
+    public String getPassengerById(long id) {
+        Passenger passenger = getRestClient().getPassengerById(id);
+
+        System.out.println(passenger);
+        return passenger.toString();
+    }
+
+    public String getAirportById(long id) {
+        Airport airport = getRestClient().getAirportById(id);
+
+//        System.out.println(airport);
+        return airport.toString();
+    }
+
+
+    public void getFlightPlan(long id) {
+        List<Long> airportIdList = getRestClient().getAircraftById(id).getAirportIdList();
+        for (int i = 0; i < airportIdList.size(); i++) {
+            System.out.printf("Airport(%s)\n", i);
+            System.out.println(getAirportById(airportIdList.get(i)));
         }
     }
 
-    public static void getCityById(long id) {
-        City city;
-        try {
-            city = restClient.getCityById(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
-        System.out.println("\t\t\t" + city);
-    }
-
-    public static void getAllAirport() {
-        List<Airport> airportList;
-        try {
-            airportList = restClient.getAllAirport();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
-        int airportCount = 0;
-        for (Airport airport : airportList) {
-            System.out.printf("\nAirport(%s):\n********\n", airportCount);
-            System.out.println("\tID:                 " + airport.getId());
-            System.out.println("\tName:               " + airport.getName());
-            System.out.println("\tCode:       " + airport.getCode());
-            System.out.println("\tAirport ID List:    ");
-            getCityById(airport.getCityId());
-            airportCount++;
+    public void getAirportsByCity(long id) {
+        List<Long> airportIdList = getRestClient().getCityById(id).getAirportIdList();
+        for (int i = 0; i < airportIdList.size(); i++) {
+            System.out.printf("Airport(%s)\n", i);
+            System.out.println(getAirportById(airportIdList.get(i)));
         }
     }
 
-    public static void getPassengerById(long id) {
-        Passenger passenger;
-        try {
-            passenger = restClient.getPassengerById(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
+    public void showAirportsByPassenger(long id) {
+        List<Long> aircraftIdList = getRestClient().getPassengerById(id).getAircraftIdList();
+        int count = 0;
+        for (Long aircraftId : aircraftIdList) {
+            List<Long> airportList = getRestClient().getAircraftById(aircraftId).getAirportIdList();
+            for (Long airportId : airportList) {
+                System.out.printf("Airport(%s)\n", count);
+                System.out.println(getRestClient().getAirportById(airportId));
+                count ++;
+            }
         }
-        System.out.println("\t\t\t" + passenger);
-    }
-
-    public static void getAirportById(long id) {
-        Airport airport;
-        try {
-            airport = restClient.getAirportById(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
-        System.out.println("\t\t\t" + airport);
     }
 }
