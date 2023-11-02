@@ -67,4 +67,16 @@ public class Aircraft {
         }
         this.numberOfPassengers = numberOfPassengers;
     }
+
+    @Override
+    public String toString() {
+        return "Aircraft{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", airlineName='" + airlineName + '\'' +
+                ", numberOfPassengers=" + numberOfPassengers +
+                ", passengerIdList=" + passengerIdList +
+                ", airportIdList=" + airportIdList +
+                '}';
+    }
 }

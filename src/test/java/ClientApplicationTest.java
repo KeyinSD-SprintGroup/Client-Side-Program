@@ -94,4 +94,41 @@ public class ClientApplicationTest {
 
         Assertions.assertTrue(httpRestCLIApplicationUnderTest.generatePassengerReport().contains("Glen"));
     }
+
+    @Test
+    public void testGetAirportById() {
+        ClientApplication httpRestCLIApplicationUnderTest = new ClientApplication();
+
+        Airport stJohnsAirport = new Airport();
+        stJohnsAirport.setCode("YYT");
+        stJohnsAirport.setName("St. John's Airport");
+        stJohnsAirport.setCityId(1);
+        List<Airport> airportList = new ArrayList<>();
+        airportList.add(stJohnsAirport);
+
+        Mockito.when(mockRESTClient.getAirportById(0)).thenReturn(airportList.get(0));
+
+        httpRestCLIApplicationUnderTest.setRestClient(mockRESTClient);
+
+        Assertions.assertTrue(httpRestCLIApplicationUnderTest.getAirportById(0).contains("YYT"));
+    }
+
+    @Test
+    public void testGetPassengerById() {
+        ClientApplication httpRestCLIApplicationUnderTest = new ClientApplication();
+
+        Passenger glenSturge = new Passenger();
+        glenSturge.setFirstName("Glen");
+        glenSturge.setLastName("Sturge");
+        glenSturge.setPhoneNumber("709-722-2222");
+
+        List<Passenger> passengerList = new ArrayList<>();
+        passengerList.add(glenSturge);
+
+        Mockito.when(mockRESTClient.getPassengerById(0)).thenReturn(passengerList.get(0));
+
+        httpRestCLIApplicationUnderTest.setRestClient(mockRESTClient);
+
+        Assertions.assertTrue(httpRestCLIApplicationUnderTest.getPassengerById(0).contains("Glen"));
+    }
 }

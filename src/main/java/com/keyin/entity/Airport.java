@@ -40,6 +40,7 @@ public class Airport {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", code='" + code + '\'' +
+                ", cityId=" + cityId +
                 '}';
     }
 }

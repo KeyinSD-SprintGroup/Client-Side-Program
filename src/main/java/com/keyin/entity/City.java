@@ -59,6 +59,7 @@ public class City {
                 ", name='" + name + '\'' +
                 ", state='" + state + '\'' +
                 ", population=" + population +
+                ", airportIdList=" + airportIdList +
                 '}';
     }
 }
