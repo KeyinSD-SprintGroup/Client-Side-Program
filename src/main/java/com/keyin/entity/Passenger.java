@@ -8,13 +8,13 @@ public class Passenger {
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private List<Long> airportIdList;
+    private List<Long> aircraftIdList;
 
-    public List<Long> getAirportIdList() {
-        if (airportIdList == null) {
-            airportIdList = new ArrayList<>();
+    public List<Long> getAircraftIdList() {
+        if (aircraftIdList == null) {
+            aircraftIdList = new ArrayList<>();
         }
-        return airportIdList;
+        return aircraftIdList;
     }
 
     public long getId() {
