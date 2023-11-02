@@ -5,6 +5,7 @@ import com.keyin.entity.Airport;
 import com.keyin.entity.City;
 import com.keyin.entity.Passenger;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -76,7 +77,7 @@ public class ClientApplication {
                                 getAirportsByCity(id);
                                 break;
                             case "passenger":
-//
+                                System.out.println("not implemented");
                                 break;
                             case "flightplan":
                                 getFlightPlan(id);
@@ -87,8 +88,8 @@ public class ClientApplication {
                             default:
                                 System.out.println("Invalid sub-option. Please choose a valid sub-option.");
                         }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid ID. ID must be an integer.");
+                    } catch (Exception e) {
+                        System.out.println("Error: " + e.getMessage());
                     }
                 }
                 break;
@@ -140,12 +141,12 @@ public class ClientApplication {
         StringBuffer report = new StringBuffer();
 
         for (Airport airport : airports) {
-            report.append(airport.getName());
-            report.append(" - ");
-            report.append(airport.getCode());
-
+//            report.append(airport.getName());
+//            report.append(" - ");
+//            report.append(airport.getCode());
+            report.append(airport.toString());
             if (airports.indexOf(airport) != (airports.size() - 1)) {
-                report.append(",");
+                report.append("\n");
             }
         }
 
@@ -160,12 +161,12 @@ public class ClientApplication {
         StringBuffer report = new StringBuffer();
 
         for (City city : cities) {
-            report.append(city.getName());
-            report.append(" - ");
-            report.append(city.getState());
-
+//            report.append(city.getName());
+//            report.append(" - ");
+//            report.append(city.getState());
+            report.append(city.toString());
             if (cities.indexOf(city) != (cities.size() - 1)) {
-                report.append(",");
+                report.append("\n");
             }
         }
 
@@ -180,12 +181,12 @@ public class ClientApplication {
         StringBuffer report = new StringBuffer();
 
         for (Passenger passenger : passengers) {
-            report.append(passenger.getFirstName() + " " + passenger.getLastName());
-            report.append(" - ");
-            report.append(passenger.getPhoneNumber());
-
+//            report.append(passenger.getFirstName() + " " + passenger.getLastName());
+//            report.append(" - ");
+//            report.append(passenger.getPhoneNumber());
+            report.append(passenger.toString());
             if (passengers.indexOf(passenger) != (passengers.size() - 1)) {
-                report.append(",");
+                report.append("\n");
             }
         }
 
@@ -196,14 +197,14 @@ public class ClientApplication {
 
     public String getCityById(long id) {
         City city = getRestClient().getCityById(id);
-        System.out.println(city);
+//        System.out.println(city);
         return city.toString();
     }
 
-    public String getPassengerById(long id) {
+    public static String getPassengerById(long id) {
         Passenger passenger = getRestClient().getPassengerById(id);
 
-        System.out.println(passenger);
+//        System.out.println(passenger);
         return passenger.toString();
     }
 
@@ -215,32 +216,89 @@ public class ClientApplication {
     }
 
 
-    public static void getFlightPlan(long id) {
+    public static String getFlightPlan(long id) {
+//        List<Long> airportIdList = getRestClient().getAircraftById(id).getAirportIdList();
+//        for (int i = 0; i < airportIdList.size(); i++) {
+//            System.out.printf("Airport(%s)\n", i);
+//            System.out.println(getAirportById(airportIdList.get(i)));
+//        }
+
         List<Long> airportIdList = getRestClient().getAircraftById(id).getAirportIdList();
-        for (int i = 0; i < airportIdList.size(); i++) {
-            System.out.printf("Airport(%s)\n", i);
-            System.out.println(getAirportById(airportIdList.get(i)));
-        }
-    }
 
-    public static void getAirportsByCity(long id) {
-        List<Long> airportIdList = getRestClient().getCityById(id).getAirportIdList();
-        for (int i = 0; i < airportIdList.size(); i++) {
-            System.out.printf("Airport(%s)\n", i);
-            System.out.println(getAirportById(airportIdList.get(i)));
-        }
-    }
+        StringBuffer report = new StringBuffer();
 
-    public static void showAirportsByPassenger(long id) {
-        List<Long> aircraftIdList = getRestClient().getPassengerById(id).getAircraftIdList();
-        int count = 0;
-        for (Long aircraftId : aircraftIdList) {
-            List<Long> airportList = getRestClient().getAircraftById(aircraftId).getAirportIdList();
-            for (Long airportId : airportList) {
-                System.out.printf("Airport(%s)\n", count);
-                System.out.println(getRestClient().getAirportById(airportId));
-                count ++;
+        for (Long airportID : airportIdList) {
+            report.append(getRestClient().getAirportById(airportID).toString());
+
+            if (airportIdList.indexOf(airportID) != (airportIdList.size() - 1)) {
+                report.append("\n");
             }
         }
+
+        System.out.println(report);
+
+        return report.toString();
+    }
+
+    public static String getAirportsByCity(long id) {
+//        List<Long> airportIdList = getRestClient().getCityById(id).getAirportIdList();
+//        for (int i = 0; i < airportIdList.size(); i++) {
+//            System.out.printf("Airport(%s)\n", i);
+//            System.out.println(getAirportById(airportIdList.get(i)));
+//        }
+        List<Long> airportIdList = getRestClient().getCityById(id).getAirportIdList();
+
+        StringBuffer report = new StringBuffer();
+
+        for (Long airportID : airportIdList) {
+            report.append(getRestClient().getAirportById(airportID).toString());
+
+            if (airportIdList.indexOf(airportID) != (airportIdList.size() - 1)) {
+                report.append("\n");
+            }
+        }
+
+        System.out.println(report);
+
+        return report.toString();
+    }
+
+    public static String showAirportsByPassenger(long id) {
+//        List<Long> aircraftIdList = getRestClient().getPassengerById(id).getAircraftIdList();
+//        int count = 0;
+//        for (Long aircraftId : aircraftIdList) {
+//            List<Long> airportList = getRestClient().getAircraftById(aircraftId).getAirportIdList();
+//            for (Long airportId : airportList) {
+//                System.out.printf("Airport(%s)\n", count);
+//                System.out.println(getRestClient().getAirportById(airportId));
+//                count ++;
+//            }
+//        }
+        List<Long> aircraftIdList = getRestClient().getPassengerById(id).getAircraftIdList();
+
+        StringBuffer report = new StringBuffer();
+
+        List<Long> airportIdList = new ArrayList<>();
+        for (Long aircraftId : aircraftIdList) {
+            List<Long> airportIdTempList = getRestClient().getAircraftById(aircraftId).getAirportIdList();
+
+            for (Long airportId : airportIdTempList) {
+                if (!airportIdList.contains(airportId)) {
+                    airportIdList.add(airportId);
+                }
+            }
+        }
+
+        for (Long airportId : airportIdList) {
+            report.append(getRestClient().getAirportById(airportId).toString());
+
+            if (airportIdList.indexOf(airportId) != (airportIdList.size() - 1)) {
+                report.append("\n");
+            }
+        }
+
+        System.out.println(report);
+
+        return report.toString();
     }
 }
