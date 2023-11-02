@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="S4_2023_Spring_HTTP_Client_Mock" />
+        <module name="com-keyin-client-app" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="S4_2023_Spring_HTTP_Client_Mock" target="20" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -5,12 +5,13 @@ import com.keyin.entity.Airport;
 import com.keyin.entity.City;
 import com.keyin.entity.Passenger;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class ClientApplication {
-    private RESTClient restClient;
-    public RESTClient getRestClient() {
+    private static RESTClient restClient;
+    public static RESTClient getRestClient() {
         if (restClient == null) {
             restClient = new RESTClient();
         }
@@ -20,104 +21,100 @@ public class ClientApplication {
         this.restClient = restClient;
     }
 
-    public static void main(String[] args) {
-        ClientApplication cliApp = new ClientApplication();
-
-        cliApp.setRestClient(new RESTClient());
-
-        System.out.println("\ngetFlightPlan()*****\n");
-        cliApp.getFlightPlan(0);
-
-    }
-
 //    public static void main(String[] args) {
 //        ClientApplication cliApp = new ClientApplication();
 //
 //        cliApp.setRestClient(new RESTClient());
 //
-//        Scanner scanner = new Scanner(System.in);
-//        printMenuAndUsage();
-//
-//        String input = scanner.nextLine();
-//        String[] inputParts = input.split(" ");
-//
-//        if (inputParts.length < 2 || !"ClientApplication".equals(inputParts[0])) {
-//            System.out.println("Invalid input format. The input must start with 'ClientApplication'.");
-//            return;
-//        }
-//
-//        String option = inputParts[1];
-//
-//        if ("--showall".equals(option)) {
-//            if (inputParts.length < 3) {
-//                System.out.println("Missing sub-option. Please provide a sub-option.");
-//            } else {
-//                String subOption = inputParts[2];
-//                switch (subOption) {
-//                    case "aircraft":
-//                        cliApp.generateAircraftReport();
-//                        break;
-//                    case "airports":
-//                        cliApp.generateAirportReport();
-//                        break;
-//                    case "passengers":
-//                        cliApp.generatePassengerReport();
-//                        break;
-//                    case "cities":
-//                        cliApp.generateCityReport();
-//                        break;
-//                    default:
-//                        System.out.println("Invalid sub-option. Please choose a valid sub-option.");
-//                }
-//            }
-//        } else if ("--show".equals(option)) {
-//            if (inputParts.length < 4) {
-//                System.out.println("Missing sub-option or ID. Please provide a sub-option and ID.");
-//            } else {
-//                String subCommand = inputParts[2];
-//                try {
-//                    long id = Long.parseLong(inputParts[3]);
-//                    switch (subCommand) {
-//                        case "airport":
-////                             cliApp.getAirportsByCity();
-//                            break;
-//                        case "passenger":
-////                            showAircraftByPassenger(id);
-//                            break;
-//                        case "flightplan":
-//                             cliApp.getFlightPlan(id);
-//                            break;
-//                        case "airportpassenger":
-////                             showAirportsUsedByPassenger(id);
-//                            break;
-//                        default:
-//                            System.out.println("Invalid sub-option. Please choose a valid sub-option.");
-//                    }
-//                } catch (NumberFormatException e) {
-//                    System.out.println("Invalid ID. ID must be an integer.");
-//                }
-//            }
-//        } else {
-//            System.out.println("Invalid option. Please choose a valid option.");
-//        }
-//    }
-//
-//
-//    public static void printMenuAndUsage() {
-//        System.out.println("Cities and Airports Information System - CLI");
-//        System.out.println("Usage: ClientApplication <option> [additional arguments]");
-//        System.out.println("Options:");
-//        System.out.println(" --showall airports                   shows list of all airports");
-//        System.out.println(" --showall aircraft                   shows list of all aircraft");
-//        System.out.println(" --showall passengers                 shows list of all passengers");
-//        System.out.println(" --showall cities                     shows list of all cities");
-//        System.out.println(" --show airport <id>                  shows the airports in a specific city");
-//        System.out.println(" --show flightplan <id>               shows the take-off and landing cities of an aircraft");
-//         System.out.println(" --show passenger <id>                shows which aircraft a specific passenger used");
-//        System.out.println(" --show airportpassenger <id>         shows which airports are used by a specific passenger");
-//    }
+//        System.out.println("\ngetFlightPlan()*****\n");
+//        cliApp.getFlightPlan(0);
 
-    public String generateAircraftReport() {
+        public static void main(String[] args) {
+            if (args.length < 1) {
+                System.out.println("Usage: java ClientApplication <option> [additional arguments]");
+                printMenuAndUsage();
+                return;
+            }
+
+            String option = args[0];
+
+            switch (option) {
+                case "--showall":
+                    System.out.println("Showall used. Args: " + Arrays.toString(args));
+                    if (args.length < 2) {
+                        System.out.println("Missing sub-option. Please provide a sub-option.");
+                    } else {
+                        String subOption = args[1];
+                        switch (subOption) {
+                            case "aircraft":
+                                generateAircraftReport();
+//                                break;
+                            case "airports":
+                                generateAirportReport();
+//                                break;
+                            case "passengers":
+                                generatePassengerReport();
+//                                break;
+                            case "cities":
+                                generateCityReport();
+//                                break;
+                            default:
+                                System.out.println("Invalid sub-option. Please choose a valid sub-option.");
+                        }
+                    }
+                    break;
+                case "--show":
+                    System.out.println("Show used. Args: " + Arrays.toString(args));
+                    if (args.length < 3) {
+                        System.out.println("Missing sub-option or ID. Please provide a sub-option and ID.");
+                    } else {
+                        String subCommand = args[1];
+                        try {
+                            long id = Long.parseLong(args[2]);
+                            switch (subCommand) {
+                                case "airport":
+                                    getAirportsByCity(id);
+                                    break;
+                                case "passenger":
+
+                                    break;
+                                case "flightplan":
+                                    getFlightPlan(id);
+                                    break;
+                                case "airportpassenger":
+                                    showAirportsByPassenger(id);
+                                    break;
+                                default:
+                                    System.out.println("Invalid sub-option. Please choose a valid sub-option.");
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid ID. ID must be an integer.");
+                        }
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid option. Please choose a valid option.");
+            }
+        }
+
+        public static void printMenuAndUsage() {
+            System.out.println("Cities and Airports Information System - CLI");
+            System.out.println("Usage: ClientApplication <option> [additional arguments]");
+            System.out.println("Options:");
+            System.out.println(" --showall airports                   shows list of all airports");
+            System.out.println(" --showall aircraft                   shows list of all aircraft");
+            System.out.println(" --showall passengers                 shows list of all passengers");
+            System.out.println(" --showall cities                     shows list of all cities");
+            System.out.println(" --show airport <id>                  shows the airports in a specific city");
+            System.out.println(" --show passenger <id>                shows which aircraft a specific passenger used");
+            System.out.println(" --show flightplan <id>               shows the take-off and landing cities of an aircraft");
+            System.out.println(" --show airportpassenger <id>         shows which airports are used by a specific passenger");
+        }
+
+
+
+
+        public static String generateAircraftReport() {
         List<Aircraft> aircrafts = getRestClient().getAllAircraft();
 
         StringBuffer report = new StringBuffer();
@@ -137,7 +134,7 @@ public class ClientApplication {
         return report.toString();
     }
 
-    public String generateAirportReport() {
+    public static String generateAirportReport() {
         List<Airport> airports = getRestClient().getAllAirports();
 
         StringBuffer report = new StringBuffer();
@@ -157,7 +154,7 @@ public class ClientApplication {
         return report.toString();
     }
 
-    public String generateCityReport() {
+    public static String generateCityReport() {
         List<City> cities = getRestClient().getAllCity();
 
         StringBuffer report = new StringBuffer();
@@ -177,7 +174,7 @@ public class ClientApplication {
         return report.toString();
     }
 
-    public String generatePassengerReport() {
+    public static String generatePassengerReport() {
         List<Passenger> passengers = getRestClient().getAllPassengers();
 
         StringBuffer report = new StringBuffer();
@@ -210,7 +207,7 @@ public class ClientApplication {
         return passenger.toString();
     }
 
-    public String getAirportById(long id) {
+    public static String getAirportById(long id) {
         Airport airport = getRestClient().getAirportById(id);
 
 //        System.out.println(airport);
@@ -218,7 +215,7 @@ public class ClientApplication {
     }
 
 
-    public void getFlightPlan(long id) {
+    public static void getFlightPlan(long id) {
         List<Long> airportIdList = getRestClient().getAircraftById(id).getAirportIdList();
         for (int i = 0; i < airportIdList.size(); i++) {
             System.out.printf("Airport(%s)\n", i);
@@ -226,7 +223,7 @@ public class ClientApplication {
         }
     }
 
-    public void getAirportsByCity(long id) {
+    public static void getAirportsByCity(long id) {
         List<Long> airportIdList = getRestClient().getCityById(id).getAirportIdList();
         for (int i = 0; i < airportIdList.size(); i++) {
             System.out.printf("Airport(%s)\n", i);
@@ -234,7 +231,7 @@ public class ClientApplication {
         }
     }
 
-    public void showAirportsByPassenger(long id) {
+    public static void showAirportsByPassenger(long id) {
         List<Long> aircraftIdList = getRestClient().getPassengerById(id).getAircraftIdList();
         int count = 0;
         for (Long aircraftId : aircraftIdList) {
