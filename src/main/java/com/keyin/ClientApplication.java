@@ -121,16 +121,13 @@ public class ClientApplication {
         StringBuffer report = new StringBuffer();
 
         for (Aircraft  aircraft : aircrafts) {
-//            report.append(aircraft.getType());
-//            report.append(" - ");
-//            report.append(aircraft.getAirlineName());
             report.append(aircraft.toString());
             if (aircrafts.indexOf(aircraft) != (aircrafts.size() - 1)) {
                 report.append("\n");
             }
         }
 
-        System.out.println(report.toString());
+        System.out.println(report);
 
         return report.toString();
     }
@@ -141,16 +138,13 @@ public class ClientApplication {
         StringBuffer report = new StringBuffer();
 
         for (Airport airport : airports) {
-//            report.append(airport.getName());
-//            report.append(" - ");
-//            report.append(airport.getCode());
             report.append(airport.toString());
             if (airports.indexOf(airport) != (airports.size() - 1)) {
                 report.append("\n");
             }
         }
 
-        System.out.println(report.toString());
+        System.out.println(report);
 
         return report.toString();
     }
@@ -161,16 +155,13 @@ public class ClientApplication {
         StringBuffer report = new StringBuffer();
 
         for (City city : cities) {
-//            report.append(city.getName());
-//            report.append(" - ");
-//            report.append(city.getState());
             report.append(city.toString());
             if (cities.indexOf(city) != (cities.size() - 1)) {
                 report.append("\n");
             }
         }
 
-        System.out.println(report.toString());
+        System.out.println(report);
 
         return report.toString();
     }
@@ -181,16 +172,13 @@ public class ClientApplication {
         StringBuffer report = new StringBuffer();
 
         for (Passenger passenger : passengers) {
-//            report.append(passenger.getFirstName() + " " + passenger.getLastName());
-//            report.append(" - ");
-//            report.append(passenger.getPhoneNumber());
             report.append(passenger.toString());
             if (passengers.indexOf(passenger) != (passengers.size() - 1)) {
                 report.append("\n");
             }
         }
 
-        System.out.println(report.toString());
+        System.out.println(report);
 
         return report.toString();
     }
@@ -217,12 +205,6 @@ public class ClientApplication {
 
 
     public static String getFlightPlan(long id) {
-//        List<Long> airportIdList = getRestClient().getAircraftById(id).getAirportIdList();
-//        for (int i = 0; i < airportIdList.size(); i++) {
-//            System.out.printf("Airport(%s)\n", i);
-//            System.out.println(getAirportById(airportIdList.get(i)));
-//        }
-
         List<Long> airportIdList = getRestClient().getAircraftById(id).getAirportIdList();
 
         StringBuffer report = new StringBuffer();
@@ -241,11 +223,6 @@ public class ClientApplication {
     }
 
     public static String getAirportsByCity(long id) {
-//        List<Long> airportIdList = getRestClient().getCityById(id).getAirportIdList();
-//        for (int i = 0; i < airportIdList.size(); i++) {
-//            System.out.printf("Airport(%s)\n", i);
-//            System.out.println(getAirportById(airportIdList.get(i)));
-//        }
         List<Long> airportIdList = getRestClient().getCityById(id).getAirportIdList();
 
         StringBuffer report = new StringBuffer();
@@ -264,16 +241,6 @@ public class ClientApplication {
     }
 
     public static String showAirportsByPassenger(long id) {
-//        List<Long> aircraftIdList = getRestClient().getPassengerById(id).getAircraftIdList();
-//        int count = 0;
-//        for (Long aircraftId : aircraftIdList) {
-//            List<Long> airportList = getRestClient().getAircraftById(aircraftId).getAirportIdList();
-//            for (Long airportId : airportList) {
-//                System.out.printf("Airport(%s)\n", count);
-//                System.out.println(getRestClient().getAirportById(airportId));
-//                count ++;
-//            }
-//        }
         List<Long> aircraftIdList = getRestClient().getPassengerById(id).getAircraftIdList();
 
         StringBuffer report = new StringBuffer();
