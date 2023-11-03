@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cb960c09-1a62-4fd1-98e2-0e6d7de63221" name="Changes" comment="getAllPassengers/passengers functionality added" />
+    <list default="true" id="cb960c09-1a62-4fd1-98e2-0e6d7de63221" name="Changes" comment="getAllPassengers/passengers functionality added">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,7 +74,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "thursday-9pm-fns-revision",
+    "git-widget-placeholder": "thu-930-cleanup",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/jonah/Desktop/Semester4/MTSprint",
     "node.js.detected.package.eslint": "true",
