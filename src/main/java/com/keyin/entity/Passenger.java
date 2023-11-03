@@ -17,6 +17,13 @@ public class Passenger {
         return aircraftIdList;
     }
 
+    public void appendAircraft(long id) {
+        if (aircraftIdList == null) {
+            aircraftIdList = new ArrayList<>();
+        }
+        aircraftIdList.add(id);
+    }
+
     public long getId() {
         return id;
     }

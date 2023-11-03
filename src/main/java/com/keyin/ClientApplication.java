@@ -31,6 +31,10 @@ public class ClientApplication {
 //        cliApp.getFlightPlan(0);
 
     public static void main(String[] args) {
+        ClientApplication cliApp = new ClientApplication();
+
+        cliApp.setRestClient(new RESTClient());
+
         if (args.length < 1) {
             System.out.println("Usage: java ClientApplication <option> [additional arguments]");
             printMenuAndUsage();
@@ -48,16 +52,16 @@ public class ClientApplication {
                     String subOption = args[1];
                     switch (subOption) {
                         case "aircraft":
-                            generateAircraftReport();
+                            cliApp.generateAircraftReport();
                             break;
                         case "airports":
-                            generateAirportReport();
+                            cliApp.generateAirportReport();
                             break;
                         case "passengers":
-                            generatePassengerReport();
+                            cliApp.generatePassengerReport();
                             break;
                         case "cities":
-                            generateCityReport();
+                            cliApp.generateCityReport();
                             break;
                         default:
                             System.out.println("Invalid sub-option. Please choose a valid sub-option.");
@@ -74,16 +78,16 @@ public class ClientApplication {
                         long id = Long.parseLong(args[2]);
                         switch (subCommand) {
                             case "airport":
-                                getAirportsByCity(id);
+                                cliApp.getAirportsByCity(id);
                                 break;
                             case "passenger":
-                                showAircraftByPassenger(id);
+                                cliApp.showAircraftByPassenger(id);
                                 break;
                             case "flightplan":
-                                getFlightPlan(id);
+                                cliApp.getFlightPlan(id);
                                 break;
                             case "airportpassenger":
-                                showAirportsByPassenger(id);
+                                cliApp.showAirportsByPassenger(id);
                                 break;
                             default:
                                 System.out.println("Invalid sub-option. Please choose a valid sub-option.");
@@ -108,14 +112,14 @@ public class ClientApplication {
         System.out.println(" --showall cities                     shows list of all cities");
         System.out.println(" --show airport <id>                  shows the airports in a specific city");
         System.out.println(" --show passenger <id>                shows which aircraft a specific passenger used");
-        System.out.println(" --show flightplan <id>               shows the take-off and landing cities of an aircraft");
+        System.out.println(" --show flightplan <id>               shows the take-off and landing airports of an aircraft");
         System.out.println(" --show airportpassenger <id>         shows which airports are used by a specific passenger");
     }
 
 
 
 
-    public static String generateAircraftReport() {
+    public String generateAircraftReport() {
         List<Aircraft> aircrafts = getRestClient().getAllAircraft();
 
         StringBuffer report = new StringBuffer();
@@ -132,7 +136,7 @@ public class ClientApplication {
         return report.toString();
     }
 
-    public static String generateAirportReport() {
+    public String generateAirportReport() {
         List<Airport> airports = getRestClient().getAllAirports();
 
         StringBuffer report = new StringBuffer();
@@ -149,7 +153,7 @@ public class ClientApplication {
         return report.toString();
     }
 
-    public static String generateCityReport() {
+    public String generateCityReport() {
         List<City> cities = getRestClient().getAllCity();
 
         StringBuffer report = new StringBuffer();
@@ -166,7 +170,7 @@ public class ClientApplication {
         return report.toString();
     }
 
-    public static String generatePassengerReport() {
+    public String generatePassengerReport() {
         List<Passenger> passengers = getRestClient().getAllPassengers();
 
         StringBuffer report = new StringBuffer();
@@ -189,14 +193,14 @@ public class ClientApplication {
         return city.toString();
     }
 
-    public static String getPassengerById(long id) {
+    public String getPassengerById(long id) {
         Passenger passenger = getRestClient().getPassengerById(id);
 
 //        System.out.println(passenger);
         return passenger.toString();
     }
 
-    public static String getAirportById(long id) {
+    public String getAirportById(long id) {
         Airport airport = getRestClient().getAirportById(id);
 
 //        System.out.println(airport);
@@ -204,7 +208,7 @@ public class ClientApplication {
     }
 
 
-    public static String getFlightPlan(long id) {
+    public String getFlightPlan(long id) {
         List<Long> airportIdList = getRestClient().getAircraftById(id).getAirportIdList();
 
         StringBuffer report = new StringBuffer();
@@ -222,7 +226,7 @@ public class ClientApplication {
         return report.toString();
     }
 
-    public static String getAirportsByCity(long id) {
+    public String getAirportsByCity(long id) {
         List<Long> airportIdList = getRestClient().getCityById(id).getAirportIdList();
 
         StringBuffer report = new StringBuffer();
@@ -240,7 +244,7 @@ public class ClientApplication {
         return report.toString();
     }
 
-    public static String showAirportsByPassenger(long id) {
+    public String showAirportsByPassenger(long id) {
         List<Long> aircraftIdList = getRestClient().getPassengerById(id).getAircraftIdList();
 
         StringBuffer report = new StringBuffer();
@@ -269,7 +273,7 @@ public class ClientApplication {
         return report.toString();
     }
 
-    public static String showAircraftByPassenger(long id) {
+    public String showAircraftByPassenger(long id) {
         List<Long> aircraftIdList = getRestClient().getPassengerById(id).getAircraftIdList();
 
         StringBuffer report = new StringBuffer();
