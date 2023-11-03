@@ -77,7 +77,7 @@ public class ClientApplication {
                                 getAirportsByCity(id);
                                 break;
                             case "passenger":
-                                System.out.println("not implemented");
+                                showAircraftByPassenger(id);
                                 break;
                             case "flightplan":
                                 getFlightPlan(id);
@@ -268,4 +268,24 @@ public class ClientApplication {
 
         return report.toString();
     }
+
+    public static String showAircraftByPassenger(long id) {
+        List<Long> aircraftIdList = getRestClient().getPassengerById(id).getAircraftIdList();
+
+        StringBuffer report = new StringBuffer();
+
+        for (Long aircraftId : aircraftIdList) {
+            report.append(getRestClient().getAircraftById(aircraftId).toString());
+
+            if (aircraftIdList.indexOf(aircraftId) != (aircraftIdList.size() - 1)) {
+                report.append("\n");
+            }
+        }
+
+        System.out.println(report);
+
+        return report.toString();
+    }
+
+
 }
