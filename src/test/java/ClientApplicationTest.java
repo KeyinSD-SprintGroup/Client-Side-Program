@@ -11,6 +11,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,4 +133,68 @@ public class ClientApplicationTest {
 
         Assertions.assertTrue(httpRestCLIApplicationUnderTest.getPassengerById(0).contains("Glen"));
     }
+
+    @Test
+    public void testGetFlightPlan() {
+        ClientApplication httpRestCLIApplicationUnderTest = new ClientApplication();
+
+        Airport sampleAirport = new Airport();
+        sampleAirport.setId(0);
+        sampleAirport.setName("Pearson");
+        sampleAirport.setCode("YYZ");
+
+        Aircraft sampleAircraft = new Aircraft();
+        sampleAircraft.setType("Boeing747");
+        sampleAircraft.setAirlineName("Air Canada");
+        sampleAircraft.setNumberOfPassengers(50);
+        sampleAircraft.appendAirport(0);
+
+        List<Airport> airportList = new ArrayList<>();
+        airportList.add(sampleAirport);
+
+        Mockito.when(mockRESTClient.getAirportById(0)).thenReturn(airportList.get(0));
+
+        httpRestCLIApplicationUnderTest.setRestClient(mockRESTClient);
+
+    }
+
+    @Test
+    public void testGetAirportsByCity() {
+        ClientApplication httpRestCLIApplicationUnderTest = new ClientApplication();
+
+        City cityOfStJohns = new City();
+        cityOfStJohns.setName("St. John's");
+        cityOfStJohns.setState("Newfoundland");
+        cityOfStJohns.appendAirport(0);
+
+        Airport stJohnsAirport = new Airport();
+        stJohnsAirport.setCode("YYT");
+        stJohnsAirport.setName("St. John's Airport");
+        stJohnsAirport.setCityId(0);
+
+        List<Long> airportIdList = new ArrayList<>();
+        airportIdList.add(0L);
+
+        Mockito.when(mockRESTClient.getCityById(0L)).thenReturn(cityOfStJohns);
+        Mockito.when(mockRESTClient.getAirportById(0L)).thenReturn(stJohnsAirport);
+
+        httpRestCLIApplicationUnderTest.setRestClient(mockRESTClient);
+
+//        Assertions.assertTrue(httpRestCLIApplicationUnderTest.getCityById(0));
+    }
+
+    @Test
+    public void testShowAirportsByPassenger() {
+        ClientApplication httpRestCLIApplicationUnderTest = new ClientApplication();
+
+        Airport stJohnsAirport = new Airport();
+        stJohnsAirport.setCode("YYT");
+        stJohnsAirport.setName("St. John's Airport");
+
+        Passenger samplePassenger = new Passenger();
+        samplePassenger.setFirstName("Jonah");
+        samplePassenger.setLastName("Greening");
+        samplePassenger.setPhoneNumber("123-1234");
+    }
+
 }
