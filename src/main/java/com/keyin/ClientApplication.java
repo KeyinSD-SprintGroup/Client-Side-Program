@@ -209,11 +209,17 @@ public class ClientApplication {
 
 
     public String getFlightPlan(long id) {
-        List<Long> airportIdList = getRestClient().getAircraftById(id).getAirportIdList();
+        Aircraft aircraft = getRestClient().getAircraftById(id);
+        List<Long> airportIdList = aircraft.getAirportIdList();
 
         StringBuffer report = new StringBuffer();
 
+
+        report.append("Flight plan for: ");
+        report.append(aircraft);
+        report.append("\n");
         for (Long airportID : airportIdList) {
+            report.append("\t");
             report.append(getRestClient().getAirportById(airportID).toString());
 
             if (airportIdList.indexOf(airportID) != (airportIdList.size() - 1)) {
@@ -227,11 +233,16 @@ public class ClientApplication {
     }
 
     public String getAirportsByCity(long id) {
-        List<Long> airportIdList = getRestClient().getCityById(id).getAirportIdList();
+        City city = getRestClient().getCityById(id);
+        List<Long> airportIdList = city.getAirportIdList();
 
         StringBuffer report = new StringBuffer();
 
+        report.append("Airport list for: ");
+        report.append(city);
+        report.append("\n");
         for (Long airportID : airportIdList) {
+            report.append("\t");
             report.append(getRestClient().getAirportById(airportID).toString());
 
             if (airportIdList.indexOf(airportID) != (airportIdList.size() - 1)) {
@@ -245,9 +256,14 @@ public class ClientApplication {
     }
 
     public String showAirportsByPassenger(long id) {
-        List<Long> aircraftIdList = getRestClient().getPassengerById(id).getAircraftIdList();
+        Passenger passenger = getRestClient().getPassengerById(id);
+        List<Long> aircraftIdList = passenger.getAircraftIdList();
 
         StringBuffer report = new StringBuffer();
+
+        report.append("Airport list for: ");
+        report.append(passenger);
+        report.append("\n");
 
         List<Long> airportIdList = new ArrayList<>();
         for (Long aircraftId : aircraftIdList) {
@@ -261,6 +277,7 @@ public class ClientApplication {
         }
 
         for (Long airportId : airportIdList) {
+            report.append("\t");
             report.append(getRestClient().getAirportById(airportId).toString());
 
             if (airportIdList.indexOf(airportId) != (airportIdList.size() - 1)) {
@@ -274,11 +291,17 @@ public class ClientApplication {
     }
 
     public String showAircraftByPassenger(long id) {
-        List<Long> aircraftIdList = getRestClient().getPassengerById(id).getAircraftIdList();
+        Passenger passenger = getRestClient().getPassengerById(id);
+        List<Long> aircraftIdList = passenger.getAircraftIdList();
 
         StringBuffer report = new StringBuffer();
 
+        report.append("Aircraft list for: ");
+        report.append(passenger);
+        report.append("\n");
+
         for (Long aircraftId : aircraftIdList) {
+            report.append("\t");
             report.append(getRestClient().getAircraftById(aircraftId).toString());
 
             if (aircraftIdList.indexOf(aircraftId) != (aircraftIdList.size() - 1)) {

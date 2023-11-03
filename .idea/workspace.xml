@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb960c09-1a62-4fd1-98e2-0e6d7de63221" name="Changes" comment="getAllPassengers/passengers functionality added">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/keyin/ClientApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/keyin/ClientApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/keyin/entity/Passenger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/keyin/entity/Passenger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ClientApplicationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ClientApplicationTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +74,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "1130-friday-test-update",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/jonah/Desktop/Semester4/MTSprint",
     "node.js.detected.package.eslint": "true",
@@ -92,13 +89,13 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.ClientApplication">
+  <component name="RunManager" selected="JUnit.ClientApplicationTest">
     <configuration name="ClientApplication" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="17" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.keyin.ClientApplication" />
       <module name="com-keyin-client-app" />
-      <option name="PROGRAM_PARAMETERS" value="--show passenger 3" />
+      <option name="PROGRAM_PARAMETERS" value="--show passenger 0" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -218,11 +215,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ClientApplicationTest" />
         <item itemvalue="JUnit.ClientApplicationTest.testGetAirportsByCity" />
         <item itemvalue="JUnit.ClientApplicationTest.testGetFlightPlan" />
         <item itemvalue="JUnit.ClientApplicationTest.testShowAirportsByPassenger" />
         <item itemvalue="JUnit.ClientApplicationTest.testShowAircraftByPassenger" />
-        <item itemvalue="JUnit.ClientApplicationTest" />
       </list>
     </recent_temporary>
   </component>
